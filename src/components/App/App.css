@@ -1,4 +1,4 @@
-.App {
+.elzear-app {
   text-align: center;
 }
 
@@ -7,11 +7,16 @@
   height: 80px;
 }
 
-.App-header {
+.elzear-header {
   background-color: #222;
-  height: 150px;
+  height: 180px;
   padding: 20px;
   color: white;
+}
+
+.elzear-body {
+  margin-left: 210px;
+  padding: 15px;
 }
 
 .App-intro {
