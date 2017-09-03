@@ -10,7 +10,6 @@ const App = (props) => {
   if (props.location.query.token) {
     UserState.loginFromToken(props.location.query.token);
   }
-
   return (
     <div className='elzear-app'>
       <Header />

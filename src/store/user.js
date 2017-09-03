@@ -20,5 +20,6 @@ class UserState {
     this.token = null;
   }
 }
+const userState = new UserState();
 
-export default new UserState();
+export default userState;
