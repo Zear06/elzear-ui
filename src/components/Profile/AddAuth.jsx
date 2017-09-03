@@ -19,12 +19,12 @@ const Auth = ({ auth }) => {
         <Input
           name='username'
           type='text'
-          onChange={e => this.setUsername(e.target.value)}
+          onChange={e => this.setName(e.target.value)}
         />
         <Input
           name='username'
           type='text'
-          onChange={e => this.setPassword(e.target.value)}
+          onChange={e => this.setDescription(e.target.value)}
         />
         <Button onClick={() => this.submit()}>Signup</Button>
       </Form>

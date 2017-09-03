@@ -25,7 +25,7 @@ class Quest {
   query(method, url, body) {
     const headers = {};
     if (this.token) {
-      headers.Authorization = `Bearer ${this.state.user.token}`;
+      headers.Authorization = `Bearer ${this.token}`;
     }
 
     return fetch(url, {
