@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Sidebar from '../Sidebar/Sidebar';
-import logo from '../../logo.svg';
 import './App.css';
 import UserState from './../../store/user';
+import { Grid } from 'semantic-ui-react';
+import Header from './Header';
 
 const App = (props) => {
   if (props.location.query.token) {
@@ -12,15 +13,18 @@ const App = (props) => {
 
   return (
     <div className='elzear-app'>
-      <div className='elzear-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <h2>Welcome to React</h2>
-      </div>
+      <Header />
       <Sidebar
         {...props}
       />
       <div className='elzear-body'>
+      <Grid
+        className='elzear-body-grid'
+        columns={1}
+        padded
+      >
         {props.children}
+      </Grid>
       </div>
     </div>
   );

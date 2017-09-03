@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import * as _ from 'lodash';
 import { observer } from 'mobx-react';
+import { Card, Header } from 'semantic-ui-react';
 import './Profile.css';
 import Auth from './Auth';
-
 import userState from '../../store/user';
-import { Card, Header } from 'semantic-ui-react';
+import { validAuth } from '../../constants';
+import AddAuth from './AddAuth';
 
 @observer
 class Profile extends Component {
@@ -13,6 +15,10 @@ class Profile extends Component {
       return null;
     }
     const auths = userState.user.auths.map(auth => (<Auth key={auth.type} auth={auth} />));
+
+    const usedAuths = auths.map(auth => auth.type);
+    const remainingAuths = _.without(validAuth, usedAuths);
+    const addAuths = remainingAuths.map(authName => (<AddAuth auth={authName} key={authName} />));
 
     return (
       <div className='profile'>
@@ -30,6 +36,8 @@ class Profile extends Component {
 
         <Header size='medium'>Authentications</Header>
         {auths}
+
+        {addAuths}
       </div>
     );
   }

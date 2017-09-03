@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
+import { Button, Input } from 'semantic-ui-react';
 import './Login.css';
 import userState from '../../store/user';
-import { Button, Input } from 'semantic-ui-react';
 
 class SignupLocal extends Component {
-
   constructor(props) {
     super(props);
 

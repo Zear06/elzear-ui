@@ -6,6 +6,7 @@ import App from './components/App/App';
 import Login from './components/Login/Login';
 import Signup from './components/Login/Signup';
 import Profile from './components/Profile/Profile';
+import Users from './components/Users/Users';
 // import NotFound from './client/components/NotFound';
 
 const Routes = props => (
@@ -14,6 +15,7 @@ const Routes = props => (
       <Route {...props} history={hashHistory} path='/login' component={Login} />
       <Route {...props} history={hashHistory} path='/signup' component={Signup} />
       <Route {...props} history={hashHistory} path='/profile' component={Profile} />
+      <Route {...props} history={hashHistory} path='/users' component={Users} />
     </Route>
     { /* */ }
     { /* <Route path="/about" component={About} />*/ }

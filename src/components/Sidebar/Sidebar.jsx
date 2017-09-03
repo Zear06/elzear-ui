@@ -10,6 +10,7 @@ import { Menu } from 'semantic-ui-react';
 class Sidebar extends React.Component {
   render() {
     let profile = null;
+    let users = null;
     let login;
     if (userState.user === null) {
       login = (<Menu.Item
@@ -25,6 +26,12 @@ class Sidebar extends React.Component {
       >
         Profile
       </Menu.Item>);
+      users = (<Menu.Item
+        as={Link}
+        to='/users'
+      >
+        Users
+      </Menu.Item>);
       login = (<Menu.Item
         onClick={() => userState.logout()}
         as={Link}
@@ -36,6 +43,7 @@ class Sidebar extends React.Component {
     return (
       <Menu vertical className='elzear-sidebar'>
         {profile}
+        {users}
         {login}
       </Menu>
     );
