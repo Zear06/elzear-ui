@@ -1,14 +1,15 @@
-import { observable, action } from 'mobx';
-import userState from './user'
+import { action, observable } from 'mobx';
+import userState from './user';
 import { api } from '../constants';
 
 class UsersState {
   @observable users = null;
 
-  @action getUsers() {
+  @action
+  getUsers() {
     fetch(`${api}/users`, {
       headers: {
-        'Authorization': 'Bearer ' + userState.token,
+        Authorization: `Bearer ${userState.token}`,
       }
     })
       .then((resp) => {

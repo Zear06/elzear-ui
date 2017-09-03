@@ -6,7 +6,6 @@ function handleErrors(response) {
 }
 
 class Quest {
-
   constructor(token = null) {
     this.token = token;
   }
