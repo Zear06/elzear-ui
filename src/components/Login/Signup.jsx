@@ -1,8 +1,8 @@
 import React from 'react';
+import { Button, Icon } from 'semantic-ui-react';
 import SignupLocal from './SignupLocal';
 import './Login.css';
 import { api } from '../../constants';
-import { Button, Icon } from 'semantic-ui-react';
 
 function Login() {
   return (

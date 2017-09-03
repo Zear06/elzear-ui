@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router';
+import { Menu } from 'semantic-ui-react';
 import './Sidebar.css';
 import userState from '../../store/user';
-import { Menu } from 'semantic-ui-react';
 
 @observer
 class Sidebar extends React.Component {

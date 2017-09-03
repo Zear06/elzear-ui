@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { hashHistory, Route, Router } from 'react-router';
 import App from './components/App/App';
 // import About from './client/components/About';
 import Login from './components/Login/Login';
@@ -17,9 +17,9 @@ const Routes = props => (
       <Route {...props} history={hashHistory} path='/profile' component={Profile} />
       <Route {...props} history={hashHistory} path='/users' component={Users} />
     </Route>
-    { /* */ }
-    { /* <Route path="/about" component={About} />*/ }
-    { /* <Route path="*" component={NotFound} />*/ }
+    {/* */}
+    {/* <Route path="/about" component={About} /> */}
+    {/* <Route path="*" component={NotFound} /> */}
   </Router>
 );
 

@@ -30,6 +30,7 @@ const Auth = ({ auth }) => {
       </Form>
     );
   }
+  throw new Error('invalid auth');
 };
 
 Auth.propTypes = {

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import { Button, Form } from 'semantic-ui-react';
 import './Login.css';
 import Quest from '../../quest';
 import userState from '../../store/user';
 import { api } from '../../constants';
-import { Button, Form } from 'semantic-ui-react';
 
 class LoginLocal extends Component {
-
   constructor(props) {
     super(props);
 

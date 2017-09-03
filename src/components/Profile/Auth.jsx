@@ -5,7 +5,7 @@ import { Button } from 'semantic-ui-react';
 const Auth = ({ auth }) => {
   let button = null;
   if (auth.master) {
-    button = <Button disabled>This is your main profile</Button>
+    button = <Button disabled>This is your main profile</Button>;
   } else {
     button = (
       <Button>Use this as your main profile</Button>
@@ -14,7 +14,7 @@ const Auth = ({ auth }) => {
   return (
     <div>
       {auth.type}
-      {/*<Button></Button>*/}
+      {/* <Button></Button> */}
       {button}
     </div>
   );
