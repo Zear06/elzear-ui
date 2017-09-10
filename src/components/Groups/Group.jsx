@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import './Groups.css';
-import GROUPS_QUERY from '../../graphql/GroupListQuery.graphql';
-import ListGroups from './ListGroups';
-import AddGroup from './AddGroup';
+import GROUP_QUERY from '../../graphql/GroupQuery.graphql';
 
-@graphql(GROUPS_QUERY)
-class Groups extends Component {
+@graphql(GROUP_QUERY, {
+  options: ({ params }) => ({
+    variables: { key: `${params.groupKey}` },
+  })
+})
+class Group extends Component {
   render() {
     const { data } = this.props;
     if (data.loading) {
@@ -17,14 +19,12 @@ class Groups extends Component {
         </Dimmer>
       );
     }
-
     return (
-      <div className='groups'>
-        <ListGroups groups={data.groups} />
-        <AddGroup refetch={data.refetch} />
+      <div className='group'>
+        {data.group.name}
       </div>
     );
   }
 }
 
-export default Groups;
+export default Group;

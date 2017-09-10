@@ -1,0 +1,7 @@
+#import "./GroupListFragment.graphql"
+
+mutation groupAdd($name: String, !$description: String!) {
+  groupAdd(name: $name, description: $description) {
+    ...GroupFragment
+  }
+}

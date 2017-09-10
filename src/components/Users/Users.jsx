@@ -1,31 +1,43 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { graphql } from 'react-apollo';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import propTypes from 'prop-types';
+import ListUsers from './ListUsers';
 import './Users.css';
-import usersState from '../../store/users';
+import USERS_QUERY from '../../graphql/UsetList.graphql';
 
-const NO_USERS = (<div>No users</div>);
-
-@observer
+@graphql(USERS_QUERY)
 class Users extends Component {
-  constructor() {
-    super();
-    usersState.getUsers();
-  }
-
   render() {
-    if (usersState.users === null) {
-      return <div>NULL</div>;
+    const { data } = this.props;
+    if (data.loading) {
+      return (
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+      );
     }
-    const users = usersState.users ? usersState.users.map(user => (<div key={user._id}>
-      {user.username}
-    </div>)) : NO_USERS;
-
     return (
       <div className='users'>
-        {users}
+        <ListUsers users={data.users} />
       </div>
     );
   }
 }
+
+Users.propTypes = {
+  data: propTypes.shape({
+    loading: propTypes.bool,
+    users: propTypes.arrayOf(propTypes.shape({
+      _key: propTypes.string,
+      name: propTypes.string,
+      createdAt: propTypes.string,
+      masterAuth: propTypes.string
+    }))
+  })
+};
+Users.defaultProps = {
+  data: null
+};
 
 export default Users;

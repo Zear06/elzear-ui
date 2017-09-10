@@ -1,0 +1,8 @@
+#import "./UserMeFragment.graphql"
+
+mutation userEdit($payload: String) {
+  userEdit(payload: $payload) {
+    ...UserMeFragment
+    token
+  }
+}

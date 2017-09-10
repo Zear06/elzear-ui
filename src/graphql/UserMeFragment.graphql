@@ -1,0 +1,13 @@
+#import "./UserAuthFragments.graphql"
+
+fragment UserMeFragment on User {
+  _key
+  _id
+  name
+  createdAt
+  masterAuth
+  auths {
+    ... on AuthLocal { ...AuthLocalFragment }
+    ... on AuthFb { ...AuthFbFragment }
+  }
+}

@@ -1,0 +1,3 @@
+#import "./UserUserList.graphql"
+
+query { users { ...User } }

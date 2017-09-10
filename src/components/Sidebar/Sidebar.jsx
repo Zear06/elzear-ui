@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router';
 import { Menu } from 'semantic-ui-react';
@@ -12,7 +11,7 @@ class Sidebar extends React.Component {
   render() {
     const menuItemsJsx = Object.keys(routes).map((item) => {
       const { show, ...props } = routes[item];
-      if (show(userState.user)) {
+      if (show(userState.token)) {
         return (
           <Menu.Item
             key={item}
@@ -23,7 +22,6 @@ class Sidebar extends React.Component {
       }
       return null;
     });
-
     return (
       <Menu vertical className='elzear-sidebar'>
         {menuItemsJsx}
@@ -31,9 +29,5 @@ class Sidebar extends React.Component {
     );
   }
 }
-
-Sidebar.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
 
 export default Sidebar;

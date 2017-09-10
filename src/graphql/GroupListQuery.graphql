@@ -1,0 +1,3 @@
+#import "./GroupListFragment.graphql"
+
+query { groups { ...GroupFragment } }
