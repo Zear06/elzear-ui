@@ -17,7 +17,7 @@ render(Routes);
 if (module.hot) {
   module.hot.accept('./components/App/App', () => {
     // eslint-disable-next-line global-require
-    const NextApp = require('./components/App/App').default;
+    const NextApp = require('./Routes').default;
     render(NextApp);
   });
 }

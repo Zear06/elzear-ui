@@ -1,0 +1,9 @@
+
+query Group($key: String!) {
+    group(key: $key) {
+        _id
+        _key
+        name
+        createdAt
+    }
+}

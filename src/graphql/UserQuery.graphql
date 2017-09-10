@@ -1,0 +1,10 @@
+
+query User($key: String!) {
+    user(key: $key) {
+        _id
+        _key
+        name
+        createdAt
+        masterAuth
+    }
+}

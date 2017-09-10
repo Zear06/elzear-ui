@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Form, Icon, Input } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import { api } from '../../constants';
 import userState from '../../store/user';
+import AddAuthLocal from './AddAuthLocal';
 
-const Auth = ({ auth }) => {
+const Auth = ({ auth, refetch }) => {
   if (auth === 'facebook') {
     return (
       <a href={`${api}/auth/facebook/add?token=${userState.token}`}>
@@ -14,27 +15,14 @@ const Auth = ({ auth }) => {
       </a>
     );
   } else if (auth === 'local') {
-    return (
-      <Form>
-        <Input
-          name='username'
-          type='text'
-          onChange={e => this.setName(e.target.value)}
-        />
-        <Input
-          name='username'
-          type='text'
-          onChange={e => this.setDescription(e.target.value)}
-        />
-        <Button onClick={() => this.submit()}>Signup</Button>
-      </Form>
-    );
+    return <AddAuthLocal refetch={refetch} />;
   }
   throw new Error('invalid auth');
 };
 
 Auth.propTypes = {
-  auth: PropTypes.string.isRequired
+  auth: PropTypes.string.isRequired,
+  refetch: PropTypes.func.isRequired
 };
 
 export default Auth;

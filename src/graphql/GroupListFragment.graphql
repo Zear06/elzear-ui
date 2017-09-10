@@ -1,0 +1,7 @@
+
+fragment GroupFragment on Group {
+  _id
+  _key
+  name
+  createdAt
+}

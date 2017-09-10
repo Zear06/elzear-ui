@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 import { Button, Form } from 'semantic-ui-react';
-import './Login.css';
 import Quest from '../../quest';
 import userState from '../../store/user';
 import { api } from '../../constants';
 
-class LoginLocal extends Component {
+class AddAuthLocal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,20 +23,22 @@ class LoginLocal extends Component {
 
   submit() {
     const { username, password } = this.state;
-    const quest = new Quest();
-    quest.post(`${api}/auth/local/login`, {
+    const quest = new Quest(userState.token);
+    quest.post(`${api}/auth/local/add`, {
       username,
       password
     })
       .then(resp => resp.json())
       .then((resp) => {
         userState.setToken(resp.token);
-        browserHistory.push('/profile');
+        this.props.refetch();
+        // browserHistory.push('/profile');
       })
       .catch((e) => {
         console.error('e', e);
       });
   }
+
   render() {
     return (
       <Form onSubmit={() => this.submit()}>
@@ -53,11 +53,11 @@ class LoginLocal extends Component {
             type='text'
             onChange={e => this.setPassword(e.target.value)}
           />
-          <Button type='Submit'>Login</Button>
+          <Button type='Submit'>AddLocal</Button>
         </Form.Group>
       </Form>
     );
   }
 }
 
-export default LoginLocal;
+export default AddAuthLocal;

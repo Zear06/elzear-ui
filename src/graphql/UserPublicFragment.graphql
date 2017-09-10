@@ -1,0 +1,8 @@
+
+fragment UserPublic on User {
+  _id
+  _key
+  name
+  createdAt
+  masterAuth
+}

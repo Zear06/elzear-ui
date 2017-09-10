@@ -1,0 +1,14 @@
+
+fragment AuthLocalFragment on AuthLocal {
+  _id
+  _key
+  type
+  username
+}
+
+
+fragment AuthFbFragment on AuthFb {
+  _id
+  _key
+  type
+}

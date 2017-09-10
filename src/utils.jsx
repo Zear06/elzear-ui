@@ -26,7 +26,7 @@ const routes = {
   },
   logout: {
     show: _.negate(_.isNull),
-    onClick: () => userState.logout(),
+    onClick: () => userState.setToken(null),
     to: '/',
     children: 'Logout'
   }
@@ -35,7 +35,7 @@ const routes = {
 const redirectLogin = <Redirect to='/login' />;
 
 function isAuth() {
-  return userState.user !== null;
+  return userState.token !== null;
 }
 
 export {

@@ -1,25 +1,19 @@
-import { observable, action } from 'mobx';
-import jwtDecode from 'jwt-decode';
+import { action, observable } from 'mobx';
 
 class UserState {
-  @observable user = null;
-  token = null;
+  @observable token = null;
 
-  @action loginFromToken(token) {
-    this.user = jwtDecode(token);
+  @action
+  setToken(token) {
+    // client.resetStore();
     this.token = token;
   }
 
-  @action login(resp) {
-    this.user = resp.user;
-    this.token = resp.token;
-  }
-
-  @action logout() {
-    this.user = null;
-    this.token = null;
+  getToken() {
+    return this.token;
   }
 }
+
 const userState = new UserState();
 
 export default userState;

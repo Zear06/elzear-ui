@@ -1,9 +1,11 @@
 import React from 'react';
+import { Message } from 'semantic-ui-react';
 
 const Welcome = () => (
-  <div className='welcome'>
-    Welcome to Elzéar&apos;s playground.
-  </div>
+  <Message info>
+    <Message.Header>Welcome</Message.Header>
+    <p>Welcome to Elzéar&apos;s playground.</p>
+  </Message>
 );
 
 export default Welcome;

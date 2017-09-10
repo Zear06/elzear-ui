@@ -1,0 +1,3 @@
+#import "./UserMeFragment.graphql"
+
+query { me { ...UserMeFragment } }

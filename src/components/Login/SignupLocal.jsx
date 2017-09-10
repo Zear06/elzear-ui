@@ -9,8 +9,7 @@ class SignupLocal extends Component {
 
     this.state = {
       username: '',
-      password: '',
-      user: null
+      password: ''
     };
   }
 
@@ -38,37 +37,11 @@ class SignupLocal extends Component {
     })
       .then(resp => resp.json())
       .then((resp) => {
-        console.log('a', resp);
-        this.setState({ resp });
-        userState.login(resp);
-      });
-  }
-
-  zgetMe() {
-    fetch('http://localhost:3001/me', {
-      // credentials: 'include', //pass cookies, for authentication
-      method: 'get',
-      headers: {
-        // 'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Bearer ${this.state.user.token}`
-      }
-    })
-      .then((resp) => {
-        resp.json().then((rrr) => {
-          console.log('rrr', rrr);
-        });
+        userState.setToken(resp.token);
       });
   }
 
   render() {
-    console.log('this.state.user', this.state.user);
-
-    let getMe = null;
-    if (this.state.user) {
-      getMe = <button onClick={() => this.zgetMe()}>Get ME</button>;
-    }
-
     return (
       <div className='login-local'>
         <Input
@@ -82,7 +55,6 @@ class SignupLocal extends Component {
           onChange={e => this.setPassword(e.target.value)}
         />
         <Button onClick={() => this.submit()}>Signup</Button>
-        {getMe}
       </div>
     );
   }

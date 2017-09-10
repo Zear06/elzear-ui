@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import { Button, Form, Input, TextArea } from 'semantic-ui-react';
+import { Button, Dropdown, Form, Input, TextArea } from 'semantic-ui-react';
+import { graphql } from 'react-apollo';
 import './Groups.css';
 import { isAuth, redirectLogin } from '../../utils';
-import userState from '../../store/user';
-import { api } from '../../constants';
-import Quest from '../../quest';
 
-@observer
+import SUBMIT_GROUP from '../../graphql/GroupSubmit.graphql';
+import { validGroupTypes } from '../../constants';
+
+@graphql(SUBMIT_GROUP)
 class AddGroup extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
-      description: ''
+      description: '',
+      type: validGroupTypes[0]
     };
   }
 
@@ -27,21 +28,9 @@ class AddGroup extends Component {
 
   submit() {
     const { name, description } = this.state;
-
-    const quest = new Quest(userState.token);
-
-    quest.post(`${api}/groups`, {
-      name,
-      description,
-      type: 'oligarchy'
-    })
-      .then(resp => resp.json())
-      .then((resp) => {
-        console.log('a', resp);
-        // this.setState({ resp });
-      })
-      .catch((e) => {
-        console.err('e', e);
+    this.props.mutate({ variables: { name, description } })
+      .then(() => {
+        this.props.refetch();
       });
   }
 
@@ -49,6 +38,14 @@ class AddGroup extends Component {
     if (!isAuth()) {
       return redirectLogin;
     }
+    const dropdownItems = validGroupTypes.map(
+      type => (<Dropdown.Item
+        key={type}
+        text={type}
+        value={type}
+        onClick={() => this.setState({ type })}
+      />)
+    );
     return (
       <Form onSubmit={() => this.submit()} className='groups-add'>
         <Input
@@ -61,6 +58,14 @@ class AddGroup extends Component {
           type='text'
           onChange={e => this.setDescription(e.target.value)}
         />
+        <Dropdown
+          text={this.state.type}
+          value={this.state.type}
+        >
+          <Dropdown.Menu>
+            {dropdownItems}
+          </Dropdown.Menu>
+        </Dropdown>
         <Button type='Submit'>Add Group</Button>
       </Form>
     );
