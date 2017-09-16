@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Message } from 'semantic-ui-react';
 import './Login.css';
 import Quest from '../../quest';
 import userState from '../../store/user';
@@ -36,12 +36,21 @@ class LoginLocal extends Component {
         browserHistory.push('/profile');
       })
       .catch((e) => {
-        console.error('e', e);
+        this.setState({ error: e.message });
       });
   }
+
   render() {
+    let error = null;
+    if (this.state.error) {
+      error = (<Message>
+        <Message.Header>Error</Message.Header>
+        <span style={{ whiteSpace: 'pre-line' }}>{this.state.error}</span>
+      </Message>);
+    }
     return (
       <Form onSubmit={() => this.submit()}>
+        {error}
         <Form.Group>
           <Form.Input
             name='username'

@@ -1,0 +1,7 @@
+#import "./CommentFragment.graphql"
+
+mutation commentAdd($targetId: String, $text: String) {
+    commentAdd(targetId: $targetId, text: $text) {
+        ...CommentFragment
+    }
+}

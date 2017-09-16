@@ -12,8 +12,6 @@ networkInterface.use([{
     }
     // get the authentication token from local storage if it exists
     const token = userState.getToken();
-    console.log('token', token);
-
     req.options.headers.authorization = token ? `Bearer ${token}` : null;
     next();
   }

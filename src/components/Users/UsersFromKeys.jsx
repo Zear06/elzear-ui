@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { Dimmer, Header, Loader } from 'semantic-ui-react';
+import { graphql, compose } from 'react-apollo';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import propTypes from 'prop-types';
 import ListUsers from './ListUsers';
 import './Users.css';
-import USERS_QUERY from '../../graphql/UsetList.graphql';
+import USER_QUERY from '../../graphql/UserQuery.graphql';
 
-@graphql(USERS_QUERY)
-class Users extends Component {
+@compose(graphql(USER_QUERY, {
+  options: ({ users }) => {
+    return ({
+      variables: { key: `${users[0]._key}` },
+    });
+  }
+}))
+class UsersFromKeys extends Component {
   render() {
     const { data } = this.props;
     if (data.loading) {
@@ -19,16 +25,13 @@ class Users extends Component {
     }
     return (
       <div className='users'>
-        <Header>
-          Users
-        </Header>
         <ListUsers users={data.users} />
       </div>
     );
   }
 }
 
-Users.propTypes = {
+UsersFromKeys.propTypes = {
   data: propTypes.shape({
     loading: propTypes.bool,
     users: propTypes.arrayOf(propTypes.shape({
@@ -39,8 +42,8 @@ Users.propTypes = {
     }))
   })
 };
-Users.defaultProps = {
+UsersFromKeys.defaultProps = {
   data: null
 };
 
-export default Users;
+export default UsersFromKeys;

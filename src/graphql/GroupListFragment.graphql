@@ -1,7 +1,18 @@
-
 fragment GroupFragment on Group {
   _id
   _key
   name
   createdAt
+  list
+  read
+#  acpt
+  edit
+#  rqst
+#  invt
+#  revo
+  iAmIn {
+    _id
+    _key
+    type
+  }
 }

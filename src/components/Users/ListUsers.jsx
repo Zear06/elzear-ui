@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { Image, List } from 'semantic-ui-react';
+import { profilePicUrl } from './utils';
 
 class ListUsers extends Component {
   render() {
     const users = this.props.users.map(user => (
-      <div key={user._key}>
-        <Link to={`/users/${user._key}`}>
-          {user.name}
-        </Link>
-      </div>
+      <List.Item key={user._key}>
+        <Image avatar src={profilePicUrl(user)} />
+        <List.Content>
+          <List.Header
+            as={Link}
+            to={`/users/${user._key}`}
+          >
+            {user.name}
+          </List.Header>
+        </List.Content>
+      </List.Item>
     ));
     return (
-      <div className='userlist'>
+      <List className='userlist'>
         {users}
-      </div>
+      </List>
     );
   }
 }

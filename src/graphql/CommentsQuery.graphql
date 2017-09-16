@@ -1,0 +1,7 @@
+#import "./CommentFragment.graphql"
+
+query comments($targetId: String!) {
+    comments(targetId: $targetId) {
+        ...CommentFragment
+    }
+}
