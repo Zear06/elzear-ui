@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader, Message, Header } from 'semantic-ui-react';
 import './Groups.css';
 import GROUPS_QUERY from '../../graphql/GroupListQuery.graphql';
 import ListGroups from './ListGroups';
@@ -17,10 +17,22 @@ class Groups extends Component {
         </Dimmer>
       );
     }
+    if (data.error) {
+      return (
+        <Message error>
+          <Message.Header>Error</Message.Header>
+          <span style={{ whiteSpace: 'pre-line' }}>{data.error.message}</span>
+        </Message>
+      );
+    }
 
     return (
       <div className='groups'>
-        <ListGroups groups={data.groups} />
+        <Header>Member of</Header>
+        <ListGroups groups={data.groups.filter(group => group.iAmIn)} />
+        <Header>Other</Header>
+        <ListGroups groups={data.groups.filter(group => !group.iAmIn)} />
+
         <AddGroup refetch={data.refetch} />
       </div>
     );

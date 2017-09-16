@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { List } from 'semantic-ui-react';
 
-class ListGroups extends Component {
+class ListUsersFromKeys extends Component {
   render() {
-    const groups = this.props.groups.map(group => (
-      <List.Item key={group._key}>
+    const users = this.props.users.map(user => (
+      <List.Item key={user._key}>
         <List.Content>
           <List.Header
             as={Link}
-            to={`/groups/${group._key}`}
+            to={`/users/${user._key}`}
           >
-            {group.name}
+            {user.name}
           </List.Header>
         </List.Content>
       </List.Item>
     ));
     return (
-      <List relaxed className='grouplist'>
-        {groups}
+      <List className='userlist'>
+        {users}
       </List>
     );
   }
 }
 
-export default ListGroups;
+export default ListUsersFromKeys;

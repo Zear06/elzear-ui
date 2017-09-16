@@ -1,0 +1,8 @@
+
+mutation groupSelfAction($groupKey: String!, $action: String!) {
+    groupSelfAction(groupKey: $groupKey, action: $action) {
+        _id
+        _key
+        type
+    }
+}

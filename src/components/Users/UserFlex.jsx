@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Dimmer, Header, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import './Users.css';
 import USER_QUERY from '../../graphql/UserQuery.graphql';
 
 @graphql(USER_QUERY, {
-  options: ({ params }) => ({
-    variables: { key: `${params.userKey}` },
+  options: ({ userKey }) => ({
+    variables: { key: `${userKey}` },
   })
 })
-class User extends Component {
+class ListItem extends Component {
   render() {
     const { data } = this.props;
     if (data.loading) {
@@ -19,12 +19,9 @@ class User extends Component {
         </Dimmer>
       );
     }
-    return (
-      <div className='user'>
-        <Header as='h1'>{data.user.name}</Header>
-      </div>
-    );
+    const { user } = data;
+    return this.props.render(user);
   }
 }
 
-export default User;
+export default ListItem;

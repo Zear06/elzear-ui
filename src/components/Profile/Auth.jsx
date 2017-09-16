@@ -15,7 +15,7 @@ class Auth extends React.Component {
         payload: JSON.stringify({ masterAuth: this.props.auth.type })
       },
       update: (__, resp) => {
-        userState.setToken(resp.data.userEdit.token);
+        userState.setTokenNoreset(resp.data.userEdit.token);
       }
     });
   };

@@ -3,6 +3,7 @@ fragment UserPublic on User {
   _id
   _key
   name
+  extra
   createdAt
   masterAuth
 }

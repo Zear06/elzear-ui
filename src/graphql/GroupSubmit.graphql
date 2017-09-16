@@ -1,7 +1,26 @@
 #import "./GroupListFragment.graphql"
 
-mutation groupAdd($name: String, !$description: String!) {
-  groupAdd(name: $name, description: $description) {
-    ...GroupFragment
+mutation groupAdd($name: String!, $description: String!, $type: String!,
+  $list: Int,
+  $read: Int,
+  $rqst: Int,
+  $acpt: Int,
+  $invt: Int,
+  $edit: Int,
+  $revo: Int
+) {
+  groupAdd(
+    name: $name,
+    description: $description
+    type: $type
+    list: $list,
+    read: $read,
+    rqst: $rqst,
+    acpt: $acpt,
+    invt: $invt,
+    edit: $edit,
+    revo: $revo
+    ) {
+        ...GroupFragment
   }
 }

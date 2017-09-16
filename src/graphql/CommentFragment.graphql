@@ -1,0 +1,9 @@
+
+fragment CommentFragment on Comment {
+  _key
+  _id
+  _from
+  _to
+  text
+  createdAt
+}

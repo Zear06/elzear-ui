@@ -38,8 +38,13 @@ function isAuth() {
   return userState.token !== null;
 }
 
+function id2key(id) {
+  return id.split('/')[1];
+}
+
 export {
   routes,
   redirectLogin,
-  isAuth
+  isAuth,
+  id2key
 };
