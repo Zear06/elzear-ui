@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
-import { Link } from 'react-router';
+import type { QueryProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import { Button, Container, Dimmer, Header, Image, List, Loader, Message } from 'semantic-ui-react';
 import './Groups.css';
 import GROUP_QUERY from '../../graphql/GroupQuery.graphql';
@@ -11,6 +12,7 @@ import { id2key } from '../../utils';
 import { profilePicUrl } from '../Users/utils';
 import UserFlex from '../Users/UserFlex';
 import userState from '../../store/user';
+import type { routedType } from '../flowDefs';
 
 function renderU(groupUser) {
   return user => (
@@ -28,18 +30,20 @@ function renderU(groupUser) {
   );
 }
 
+type Props = routedType & QueryProps;
+
 @compose(
   graphql(GROUP_QUERY, {
-    options: ({ params }) => ({
-      variables: { key: `${params.groupKey}` },
+    options: props => ({
+      variables: { key: props.match.params.groupKey },
     })
   }),
   graphql(GROUP_SELF_ACTION)
 )
-class Group extends Component {
+class Group extends Component<Props> {
   join() {
     this.props.mutate({
-      variables: { groupKey: this.props.params.groupKey, action: 'join' }
+      variables: { groupKey: this.props.match.params.groupKey, action: 'join' }
     });
   }
 
@@ -98,7 +102,7 @@ class Group extends Component {
 
         <Header as='h3' dividing>Comments</Header>
         <ListComments targetType='groups' targetKey={data.group._key} />
-        <AddComment targetType='groups' targetKey={data.group._key} refetch={data.refetch} />
+        <AddComment targetType='groups' targetKey={data.group._key} />
       </div>
     );
   }

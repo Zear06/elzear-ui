@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { graphql } from 'react-apollo';
+import type { OptionProps } from 'react-apollo';
 import { Card, Dimmer, Header, Image, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import AddAuth from './AddAuth';
@@ -9,8 +10,10 @@ import { validAuth } from '../../constants';
 import USER_ME_QUERY from '../../graphql/UserMeQuery.graphql';
 import { profilePicUrl } from '../Users/utils';
 
+type Props = OptionProps;
+
 @graphql(USER_ME_QUERY)
-class Profile extends Component {
+class Profile extends Component<Props> {
   render() {
     const { data } = this.props;
     if (data.loading) {

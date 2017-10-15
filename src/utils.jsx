@@ -34,11 +34,11 @@ const routes = {
 
 const redirectLogin = <Redirect to='/login' />;
 
-function isAuth() {
+function isAuth() : boolean {
   return userState.token !== null;
 }
 
-function id2key(id) {
+function id2key(id : string) : string {
   return id.split('/')[1];
 }
 

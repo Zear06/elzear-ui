@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Button, Divider, Icon } from 'semantic-ui-react';
 import LoginLocal from './LoginLocal';
 import './Login.css';

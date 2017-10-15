@@ -1,31 +1,43 @@
 import React from 'react';
-import * as _ from 'lodash';
-import PropTypes from 'prop-types';
-import { Container, Message } from 'semantic-ui-react';
+import type { Node } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import queryString from 'query-string';
+import { Container } from 'semantic-ui-react';
 import Sidebar from '../Sidebar/Sidebar';
 import './App.css';
-import UserState from './../../store/user';
+import userState from '../../store/user';
 import Header from './Header';
 
-class App extends React.Component {
-  constructor(props) {
+import Login from '../Login/Login';
+import Signup from '../Login/Signup';
+import Profile from '../Profile/Profile';
+import Users from '../Users/Users';
+import Groups from '../Groups/Groups';
+import Welcome from '../App/Welcome';
+import Group from '../Groups/Group';
+import User from '../Users/User';
+import type { routedType } from '../flowDefs';
+
+function ensureAuth(nextState, replace) {
+  if (userState.token === null) {
+    replace('/login');
+  }
+}
+
+type Props = { children?: Node } & routedType;
+
+class App extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
-    if (props.location.query.token) {
-      UserState.setToken(props.location.query.token);
+    const parsed = queryString.parse(props.location.search);
+    if (parsed.token) {
+      userState.setToken(parsed.token);
     }
   }
 
   render() {
-    let error = null;
-    if (_.has(this.props.location.query, 'error')) {
-      const message = this.props.location.query.message || 'An error happened';
-      error = (
-        <Message error>
-          <Message.Header>Error</Message.Header>
-          <p>{message}</p>
-        </Message>
-      );
-    }
+    const props = this.props;
+    const error = null;
     return (
       <div className='elzear-app'>
         <Header />
@@ -33,24 +45,26 @@ class App extends React.Component {
         <Container className='elzear-body'>
           {error}
           {this.props.children}
+          <Switch>
+            <Route {...props} exact path='/' component={Welcome} />
+            <Route {...props} path='/login' component={Login} />
+            <Route {...props} path='/signup' component={Signup} />
+            <Route {...props} path='/profile' component={Profile} onEnter={ensureAuth} />
+            <Route
+              path='/groups/:groupKey'
+              onEnter={ensureAuth}
+              component={Group}
+            />
+            <Route {...props} path='/groups' onEnter={ensureAuth}>
+              <Route {...props} path='/' component={Groups} />
+            </Route>
+            <Route {...props} path='/users' component={Users} onEnter={ensureAuth} />
+            <Route {...props} path='/users/:userKey' component={User} onEnter={ensureAuth} />
+          </Switch>
         </Container>
       </div>
     );
   }
 }
-
-App.propTypes = {
-  children: PropTypes.element,
-  location: PropTypes.shape({
-    query: PropTypes.shape({
-      token: PropTypes.string,
-      error: PropTypes.bool,
-      message: PropTypes.string
-    })
-  }).isRequired
-};
-App.defaultProps = {
-  children: null
-};
 
 export default App;

@@ -3,21 +3,23 @@ import { Button, Input } from 'semantic-ui-react';
 import './Login.css';
 import userState from '../../store/user';
 
-class SignupLocal extends Component {
-  constructor(props) {
-    super(props);
+type Props = {};
+type State = {
+  username: string,
+  password: string
+};
 
-    this.state = {
-      username: '',
-      password: ''
-    };
-  }
+class SignupLocal extends Component<Props, State> {
+  state = {
+    username: '',
+    password: ''
+  };
 
-  setUsername(username) {
+  setUsername(username: string) {
     this.setState({ username });
   }
 
-  setPassword(password) {
+  setPassword(password: string) {
     this.setState({ password });
   }
 

@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { client } from '../ApolloSetup';
 
-function initToken() {
+function initToken() : ?string {
   const str = window.localStorage.getItem('token');
   if (!str || str === '' || str === 'null') {
     return null;
@@ -10,22 +10,22 @@ function initToken() {
 }
 
 class UserState {
-  @observable token = initToken();
+  @observable token: ?string = initToken();
 
   @action
-  setToken(token) {
+  setToken(token: ?string) {
     this.setTokenNoreset(token);
     client.resetStore();
   }
 
   @action
-  setTokenNoreset(token) {
+  setTokenNoreset(token: ?string) {
     window.localStorage.setItem('token', '');
     window.localStorage.setItem('token', token);
     this.token = token;
   }
 
-  getToken() {
+  getToken(): ?string {
     return this.token;
   }
 }

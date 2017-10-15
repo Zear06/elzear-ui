@@ -6,20 +6,26 @@ import Quest from '../../quest';
 import userState from '../../store/user';
 import { api } from '../../constants';
 
-class LoginLocal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: ''
-    };
-  }
+type Props = {};
 
-  setUsername(username) {
+type State = {
+  username: string,
+  password: string,
+  error: ?string
+}
+
+class LoginLocal extends Component<Props, State> {
+  state = {
+    username: '',
+    password: '',
+    error: null
+  };
+
+  setUsername(username: string) {
     this.setState({ username });
   }
 
-  setPassword(password) {
+  setPassword(password: string) {
     this.setState({ password });
   }
 

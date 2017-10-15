@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { Button, Dropdown, Form, Header, Input, Label, List, Menu, Modal, TextArea } from 'semantic-ui-react';
+import type { OptionProps } from 'react-apollo';
 import { graphql } from 'react-apollo';
 import './Groups.css';
 import { isAuth, redirectLogin } from '../../utils';
-
 import SUBMIT_GROUP from '../../graphql/GroupSubmit.graphql';
 import { validGroupTypes } from '../../constants';
 
-
-const ranks = {
-  0: 'anonym',
-  1: 'user',
-  2: 'member',
-  3: 'admin',
-  4: 'noone'
-};
+const ranks = [
+  'anonym',
+  'user',
+  'member',
+  'admin',
+  'noone'
+];
+// const ranks = {
+//   0: 'anonym',
+//   1: 'user',
+//   2: 'member',
+//   3: 'admin',
+//   4: 'noone'
+// };
 const possibleActions = {
   list: [0, 1, 2],
   read: [0, 1, 2],
@@ -25,41 +31,45 @@ const possibleActions = {
   // revo: [3, 4]
 };
 
+type Props = OptionProps;
+type State = {
+  name: string,
+  description: string,
+  type: string,
+  actions: { [string]: number }
+};
+
 @graphql(SUBMIT_GROUP)
-class AddGroup extends Component {
-  constructor(props) {
+class AddGroup extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       name: '',
       description: '',
-      type: validGroupTypes[0]
+      type: validGroupTypes[0],
+      actions: {}
     };
 
-    const actions = Object.keys(possibleActions);
-    for (const action of actions) {
-      this.state[action] = possibleActions[action][0];
-    }
+    Object.keys(possibleActions)
+      .forEach((action) => {
+        this.state.actions[action] = possibleActions[action][0];
+      });
   }
 
-  setName(name) {
+  setName(name: string) {
     this.setState({ name });
   }
 
-  setDescription(description) {
+  setDescription(description: string) {
     this.setState({ description });
-  }
-
-  toggle(boolProp) {
-    return () => this.setState({ [boolProp]: !this.state[boolProp] });
   }
 
   submit() {
     const { name, description, type } = this.state;
     const actions = {};
-    for (const action of Object.keys(possibleActions)) {
-      actions[action] = this.state[action];
-    }
-    console.log('{ name, description, ...actions }', { name, description, ...actions });
+    Object.keys(possibleActions).forEach((action) => {
+      actions[action] = this.state.actions[action];
+    });
 
     this.props.mutate({ variables: { name, description, type, ...actions } })
       .then(() => {
@@ -91,8 +101,8 @@ class AddGroup extends Component {
         >
           <Dropdown
             item
-            text={ranks[this.state[action]]}
-            value={this.state[action]}
+            text={ranks[this.state.actions[action]]}
+            value={this.state.actions[action]}
           >
             <Dropdown.Menu>
               {possibleActions[action].map(rank => (

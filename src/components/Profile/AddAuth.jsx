@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Icon } from 'semantic-ui-react';
+import type { QueryProps } from 'react-apollo';
 import { api } from '../../constants';
 import userState from '../../store/user';
 import AddAuthLocal from './AddAuthLocal';
 
-const Auth = ({ auth, refetch }) => {
+const Auth = ({ auth, refetch }: { auth: string, refetch: QueryProps.refetch }) => {
   if (auth === 'facebook') {
     return (
-      <a href={`${api}/auth/facebook/add?token=${userState.token}`}>
+      <a href={`${api}/auth/facebook/add?token=${userState.token ? userState.token : ''}`}>
         <Button color='facebook'>
           <Icon name='facebook' /> Add Facebook authentication
         </Button>
@@ -18,11 +18,6 @@ const Auth = ({ auth, refetch }) => {
     return <AddAuthLocal refetch={refetch} />;
   }
   throw new Error('invalid auth');
-};
-
-Auth.propTypes = {
-  auth: PropTypes.string.isRequired,
-  refetch: PropTypes.func.isRequired
 };
 
 export default Auth;

@@ -6,23 +6,21 @@ function handleErrors(response) {
 }
 
 class Quest {
-  constructor(token = null) {
+  token: ?string;
+
+  constructor(token : ?string = null) {
     this.token = token;
   }
 
-  setToken(token) {
-    this.token = token;
-  }
-
-  get(url) {
+  get(url: string) {
     return this.query('get', url);
   }
 
-  post(url, body) {
+  post(url: string, body: {[string]: any}) {
     return this.query('post', url, body);
   }
 
-  query(method, url, body) {
+  query(method: string, url: string, body: ?{[string]: any}): Promise<*> {
     const headers = {};
     if (this.token) {
       headers.Authorization = `Bearer ${this.token}`;
