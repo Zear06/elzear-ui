@@ -1,14 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { withApollo } from 'react-apollo';
+import type { MutationOpts } from 'react-apollo';
 import USER_MUTATE from '../../graphql/UserMutate.graphql';
 import userState from '../../store/user';
 
+type Props = {
+  auth: {},
+  master: boolean
+} & MutationOpts;
+
 @withApollo
-class Auth extends React.Component {
+class Auth extends React.Component<Props> {
   makeMaster = () => {
-    console.log('this.props', this.props);
     this.props.client.mutate({
       mutation: USER_MUTATE,
       variables: {
@@ -39,12 +43,5 @@ class Auth extends React.Component {
     );
   }
 }
-
-Auth.propTypes = {
-  auth: PropTypes.shape({
-    type: PropTypes.string
-  }).isRequired,
-  master: PropTypes.bool.isRequired
-};
 
 export default Auth;

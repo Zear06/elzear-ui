@@ -9,7 +9,7 @@ class UsersState {
   getUsers() {
     fetch(`${api}/users`, {
       headers: {
-        Authorization: `Bearer ${userState.token}`,
+        Authorization: `Bearer ${userState.token ? userState.token : ''}`,
       }
     })
       .then((resp) => {

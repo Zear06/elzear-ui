@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
 import { Comment, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
+import type { OptionProps } from 'react-apollo';
 import LIST_COMMENT from '../../graphql/CommentsQuery.graphql';
-import { CC } from './Comment';
+import CC from './Comment';
 
+type Props = OptionProps;
 
 @graphql(LIST_COMMENT, {
-  options: ({ targetType, targetKey }) => {
-    return ({
-      variables: { targetId: `${targetType}/${targetKey}` },
-    });
-  }
+  options: ({ targetType, targetKey }) => ({
+    variables: { targetId: `${targetType}/${targetKey}` },
+  })
 })
-class ListComments extends Component {
+class ListComments extends Component<Props> {
   render() {
     const { data } = this.props;
     if (data.loading) {
@@ -33,10 +32,5 @@ class ListComments extends Component {
     );
   }
 }
-
-ListComments.propTypes = {
-  targetType: propTypes.string.isRequired,
-  targetKey: propTypes.string.isRequired
-};
 
 export default ListComments;

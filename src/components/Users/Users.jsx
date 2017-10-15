@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import type { OptionProps } from 'react-apollo';
 import { Dimmer, Header, Loader } from 'semantic-ui-react';
-import propTypes from 'prop-types';
 import ListUsers from './ListUsers';
 import './Users.css';
 import USERS_QUERY from '../../graphql/UsetList.graphql';
 
+type Props = OptionProps;
+
 @graphql(USERS_QUERY)
-class Users extends Component {
+class Users extends Component<Props> {
   render() {
     const { data } = this.props;
     if (data.loading) {
@@ -27,20 +29,5 @@ class Users extends Component {
     );
   }
 }
-
-Users.propTypes = {
-  data: propTypes.shape({
-    loading: propTypes.bool,
-    users: propTypes.arrayOf(propTypes.shape({
-      _key: propTypes.string,
-      name: propTypes.string,
-      createdAt: propTypes.string,
-      masterAuth: propTypes.string
-    }))
-  })
-};
-Users.defaultProps = {
-  data: null
-};
 
 export default Users;

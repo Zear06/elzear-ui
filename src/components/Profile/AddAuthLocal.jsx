@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
+import type { QueryProps } from 'react-apollo';
 import Quest from '../../quest';
 import userState from '../../store/user';
 import { api } from '../../constants';
 
-class AddAuthLocal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: ''
-    };
-  }
+type State = {
+  username: string,
+  password: string
+};
 
-  setUsername(username) {
+class AddAuthLocal extends Component<{ refetch: QueryProps.refetch }, State> {
+  state = {
+    username: '',
+    password: ''
+  };
+
+  setUsername(username: string) {
     this.setState({ username });
   }
 
-  setPassword(password) {
+  setPassword(password: string) {
     this.setState({ password });
   }
 

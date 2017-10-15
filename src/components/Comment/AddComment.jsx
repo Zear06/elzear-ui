@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
 import { Button, Form, TextArea } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
+import type { OptionProps } from 'react-apollo';
 import SUBMIT_COMMENT from '../../graphql/CommentMutate.graphql';
 import LIST_COMMENT from '../../graphql/CommentsQuery.graphql';
 
-@graphql(SUBMIT_COMMENT)
-class AddComment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: ''
-    };
-  }
+type Props = {
+  targetType: string,
+  targetKey: string
+} & OptionProps;
+type State = { text: string };
 
-  setText(text) {
+@graphql(SUBMIT_COMMENT)
+class AddComment extends Component<Props, State> {
+  state = {
+    text: ''
+  };
+
+  setText(text: string) {
     this.setState({ text });
   }
 
@@ -65,10 +68,5 @@ class AddComment extends Component {
     );
   }
 }
-
-AddComment.propTypes = {
-  targetType: propTypes.string.isRequired,
-  targetKey: propTypes.string.isRequired
-};
 
 export default AddComment;

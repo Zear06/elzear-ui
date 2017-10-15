@@ -1,0 +1,19 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/.*
+.*\.test\.js
+<PROJECT_ROOT>/scripts/.*
+<PROJECT_ROOT>/config/.*
+
+[include]
+src/**/*.js
+
+[libs]
+flow-typed
+
+[lints]
+
+[options]
+all=true
+esproposal.decorators=ignore
+module.system=haste
+module.name_mapper='.*\.graphql' -> 'empty/object'

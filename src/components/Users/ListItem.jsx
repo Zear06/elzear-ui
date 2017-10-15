@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router';
+import type { OptionProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import { Dimmer, Image, List, Loader } from 'semantic-ui-react';
 import './Users.css';
 import USER_QUERY from '../../graphql/UserQuery.graphql';
 import { profilePicUrl } from './utils';
+
+
+type Props = OptionProps;
 
 @graphql(USER_QUERY, {
   options: ({ userKey }) => ({
     variables: { key: `${userKey}` },
   })
 })
-class ListItem extends Component {
+class ListItem extends Component<Props> {
   render() {
     const { data } = this.props;
     if (data.loading) {

@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
 import { Comment, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router';
+import type { OptionProps } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import USER_QUERY from '../../graphql/UserQuery.graphql';
 import AddComment from './AddComment';
 import ListComments from './ListComments';
+
+type Props = {
+  comment: {
+    _key: string,
+    text: string,
+    createdAt: string
+  }
+} & OptionProps;
+
+type State = {
+  showInput: boolean,
+  showResponses: boolean
+};
 
 @graphql(USER_QUERY, {
   options: ({ comment }) => {
@@ -15,20 +28,19 @@ import ListComments from './ListComments';
     });
   }
 })
-class CC extends Component {
-  constructor(props) {
+class CC extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      reply: false,
+      showInput: false,
       showResponses: false
     };
   }
 
-
   reply() {
     return (
       <AddComment
-        close={() => this.setState({ reply: false })}
+        close={() => this.setState({ showInput: false })}
         targetKey={this.props.comment._key}
         targetType='comments'
       />
@@ -38,7 +50,6 @@ class CC extends Component {
   showResponses() {
     return (
       <ListComments
-        count={this.state.count}
         targetKey={this.props.comment._key}
         targetType='comments'
       />
@@ -70,8 +81,8 @@ class CC extends Component {
           <Comment.Text>{comment.text}</Comment.Text>
           <Comment.Actions>
             <Comment.Action
-              active={this.state.reply}
-              onClick={() => this.setState({ reply: !this.state.reply })}
+              active={this.state.showInput}
+              onClick={() => this.setState({ showInput: !this.state.showInput })}
             >
               Reply
             </Comment.Action>
@@ -83,18 +94,11 @@ class CC extends Component {
             </Comment.Action>
           </Comment.Actions>
           {this.state.showResponses ? this.showResponses() : null}
-          {this.state.reply ? this.reply() : null}
+          {this.state.showInput ? this.reply() : null}
         </Comment.Content>
       </Comment>
     );
   }
 }
 
-CC.propTypes = {
-  comment: propTypes.shape({
-    _key: propTypes.string
-  }).isRequired,
-  // targetKey: propTypes.string.isRequired
-};
-
-export { CC };
+export default CC;
