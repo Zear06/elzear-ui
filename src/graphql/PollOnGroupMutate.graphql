@@ -1,0 +1,7 @@
+#import "./PollFragment.graphql"
+
+mutation pollAddOnGroup($groupKey: String, $name: String, $description: String, $type: String) {
+    pollAddOnGroup(groupKey: $groupKey, name: $name, description: $description, type: $type) {
+        ...PollFragment
+    }
+}

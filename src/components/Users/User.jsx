@@ -8,8 +8,8 @@ import USER_QUERY from '../../graphql/UserQuery.graphql';
 type Props = OptionProps;
 
 @graphql(USER_QUERY, {
-  options: ({ params }) => ({
-    variables: { key: `${params.userKey}` },
+  options: props => ({
+    variables: { key: props.match.params.userKey },
   })
 })
 class User extends Component<Props> {

@@ -1,0 +1,8 @@
+
+mutation pollAddPreferences($pollKey: String, $ranking: String) {
+    prefAdd(pollKey: $pollKey, ranking: $ranking) {
+        _id
+        _key
+        ranking
+    }
+}

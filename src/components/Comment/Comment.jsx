@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import USER_QUERY from '../../graphql/UserQuery.graphql';
 import AddComment from './AddComment';
 import ListComments from './ListComments';
+import { profilePicUrl } from '../Users/utils';
 
 type Props = {
   comment: {
@@ -67,7 +68,7 @@ class CC extends Component<Props, State> {
     }
     return (
       <Comment>
-        <Comment.Avatar src={`http://api.adorable.io/avatar/80/${data.user.name}`} />
+        <Comment.Avatar src={profilePicUrl(data.user)} />
         <Comment.Content>
           <Comment.Author
             as={Link}
