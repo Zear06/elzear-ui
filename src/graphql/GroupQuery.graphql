@@ -1,16 +1,7 @@
-#import "./GroupListFragment.graphql"
+#import "./GroupNMembersFragment.graphql"
 
 query Group($key: String!) {
     group(key: $key) {
-        ...GroupFragment,
-        description,
-        groupUsers {
-            _id
-            _key
-            type
-            user {
-                _id
-            }
-        }
+        ...GroupNMembersFragment
     }
 }

@@ -4,11 +4,15 @@ import Routes from './Routes';
 import './index.css';
 
 function render(Component) {
+  const container = document.getElementById('root');
+  if (container === null) {
+    throw new Error('Container not found');
+  }
   ReactDOM.render(
     (
       <Component />
     ),
-    document.getElementById('root')
+    container
   );
 }
 

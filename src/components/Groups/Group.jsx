@@ -13,6 +13,8 @@ import { profilePicUrl } from '../Users/utils';
 import UserFlex from '../Users/UserFlex';
 import userState from '../../store/user';
 import type { routedType } from '../flowDefs';
+import AddPollOnGroup from '../Poll/AddPollOnGroup';
+import ListPollsOnGroup from '../Poll/PollsOnGroup';
 
 function renderU(groupUser) {
   return user => (
@@ -103,6 +105,10 @@ class Group extends Component<Props> {
         <Header as='h3' dividing>Comments</Header>
         <ListComments targetType='groups' targetKey={data.group._key} />
         <AddComment targetType='groups' targetKey={data.group._key} />
+
+        <Header as='h3' dividing>Polls</Header>
+        <ListPollsOnGroup groupKey={data.group._key} />
+        <AddPollOnGroup groupKey={data.group._key} />
       </div>
     );
   }

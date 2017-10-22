@@ -1,0 +1,16 @@
+#import "./PollFragment.graphql"
+#import "./GroupNMembersFragment.graphql"
+
+query pollsOnGroup($groupKey: String!) {
+    pollsOnGroup(groupKey: $groupKey) {
+        ...PollFragment
+        group {
+            ...GroupNMembersFragment
+        }
+        preferences {
+            _id
+            _key
+        }
+        candidates
+    }
+}

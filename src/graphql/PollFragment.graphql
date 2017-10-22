@@ -1,0 +1,9 @@
+
+fragment PollFragment on Poll {
+  _key
+  _id
+  _from
+  _to
+  name
+  description
+}

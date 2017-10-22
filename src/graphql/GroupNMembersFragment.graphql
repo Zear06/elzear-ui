@@ -1,0 +1,14 @@
+#import "./GroupListFragment.graphql"
+
+fragment GroupNMembersFragment on Group {
+    ...GroupFragment,
+    description,
+    groupUsers {
+        _id
+        _key
+        type
+        user {
+            _id
+        }
+    }
+}

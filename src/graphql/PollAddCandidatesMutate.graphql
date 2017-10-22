@@ -1,0 +1,8 @@
+#import "./PollFragment.graphql"
+
+mutation pollAddCandidates($pollKey: String, $candidates: String) {
+    pollAddCandidates(pollKey: $pollKey, candidates: $candidates) {
+        ...PollFragment
+        candidates
+    }
+}

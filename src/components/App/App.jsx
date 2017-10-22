@@ -16,6 +16,7 @@ import Groups from '../Groups/Groups';
 import Welcome from '../App/Welcome';
 import Group from '../Groups/Group';
 import User from '../Users/User';
+import Poll from '../Poll/Poll';
 import type { routedType } from '../flowDefs';
 
 function ensureAuth(nextState, replace) {
@@ -58,8 +59,9 @@ class App extends React.Component<Props> {
             <Route {...props} path='/groups' onEnter={ensureAuth}>
               <Route {...props} path='/' component={Groups} />
             </Route>
-            <Route {...props} path='/users' component={Users} onEnter={ensureAuth} />
             <Route {...props} path='/users/:userKey' component={User} onEnter={ensureAuth} />
+            <Route {...props} path='/users' component={Users} onEnter={ensureAuth} />
+            <Route {...props} path='/polls/:pollKey' component={Poll} onEnter={ensureAuth} />
           </Switch>
         </Container>
       </div>
