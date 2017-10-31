@@ -70,7 +70,8 @@ class AddPrefs extends Component<Props, State> {
       //   //   __typename: 'Comment'
       //   // },
       update:
-        (store, resp) => {
+        () => {
+          // (store, resp) => {
           // const commentAdd = resp.data.commentAdd;
           // try {
           //   const data = store.readQuery({

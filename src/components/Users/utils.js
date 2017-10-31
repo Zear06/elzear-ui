@@ -7,4 +7,5 @@ function profilePicUrl(user: User, size : number = 100) {
   return `http://api.adorable.io/avatar/${size}/${user.name}`;
 }
 
+export default profilePicUrl;
 export { profilePicUrl };
