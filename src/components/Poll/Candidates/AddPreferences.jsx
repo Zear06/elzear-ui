@@ -17,16 +17,14 @@ type State = {
 };
 
 function alternativesScores2ranking(alternativesScores): ranking {
-  const scores = ((_.uniq(
-    alternativesScores
+  const scores = ((
+    _.uniq(alternativesScores
       .map(x => x.score)
-      .filter(_.isNumber)
-  ).sort((a: number, b: number) => a - b): Array<any>): Array<number>);
-  return scores.map(
-    score => alternativesScores
-      .filter(x => x.score === score)
-      .map(x => x.alternative)
-  );
+      .filter(_.isNumber))
+      .sort((a: number, b: number) => a - b): Array<any>): Array<number>);
+  return scores.map(score => alternativesScores
+    .filter(x => x.score === score)
+    .map(x => x.alternative));
 }
 
 @graphql(ADD)
@@ -38,16 +36,14 @@ class AddPrefs extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const alternativesScores = props.candidates.map(alternative => ({ alternative, score: null, text: '' }));
-    props.myPrefs.forEach((rank, key) => rank.forEach(
-      (alternative) => {
-        const score = (key + 1) * 10;
-        const match = _.find(alternativesScores, { alternative });
-        if (match) {
-          match.score = score;
-          match.text = String(score);
-        }
+    props.myPrefs.forEach((rank, key) => rank.forEach((alternative) => {
+      const score = (key + 1) * 10;
+      const match = _.find(alternativesScores, { alternative });
+      if (match) {
+        match.score = score;
+        match.text = String(score);
       }
-    ));
+    }));
 
     this.state = {
       alternativesScores
@@ -56,9 +52,7 @@ class AddPrefs extends Component<Props, State> {
 
   submit = () => {
     const { pollKey } = this.props;
-    const prefs = JSON.stringify(
-      alternativesScores2ranking(this.state.alternativesScores)
-    );
+    const prefs = JSON.stringify(alternativesScores2ranking(this.state.alternativesScores));
 
     this.props.mutate({
       variables: { pollKey, ranking: prefs },
@@ -93,27 +87,24 @@ class AddPrefs extends Component<Props, State> {
 
   _inputOnChange(alternative: string, text: string) {
     this.setState(({ alternativesScores }) => ({
-      alternativesScores: alternativesScores.map(
-        alternativeScore => (alternativeScore.alternative === alternative ? ({
+      alternativesScores: alternativesScores
+        .map(alternativeScore => (alternativeScore.alternative === alternative ? ({
           ...alternativeScore,
           text
-        }) : alternativeScore)
-      )
+        }) : alternativeScore))
     }));
   }
 
   _onBlur(alternative: string) {
     this.setState(({ alternativesScores }) => ({
-      alternativesScores: alternativesScores.map(
-        (alternativeScore) => {
-          const score = Number(alternativeScore.text.trim()) || null;
-          return (alternativeScore.alternative === alternative ? ({
-            ...alternativeScore,
-            score,
-            text: _.isNumber(score) ? String(score) : ''
-          }) : alternativeScore);
-        }
-      )
+      alternativesScores: alternativesScores.map((alternativeScore) => {
+        const score = Number(alternativeScore.text.trim()) || null;
+        return (alternativeScore.alternative === alternative ? ({
+          ...alternativeScore,
+          score,
+          text: _.isNumber(score) ? String(score) : ''
+        }) : alternativeScore);
+      })
     }));
   }
 

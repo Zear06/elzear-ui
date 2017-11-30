@@ -26,7 +26,9 @@ class AddPollOnGroup extends Component<Props, State> {
     const { name, description, type } = this.state;
     const { groupKey } = this.props;
     this.props.mutate({
-      variables: { groupKey, name, description, type },
+      variables: {
+        groupKey, name, description, type
+      },
       // optimisticResponse: {
       //   createdAt: new Date(),
       //   text,

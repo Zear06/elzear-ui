@@ -71,7 +71,11 @@ class AddGroup extends Component<Props, State> {
       actions[action] = this.state.actions[action];
     });
 
-    this.props.mutate({ variables: { name, description, type, ...actions } })
+    this.props.mutate({
+      variables: {
+        name, description, type, ...actions
+      }
+    })
       .then(() => {
         this.props.refetch();
       });
@@ -81,15 +85,14 @@ class AddGroup extends Component<Props, State> {
     if (!isAuth()) {
       return redirectLogin;
     }
-    const dropdownItems = validGroupTypes.map(
-      type => (<Dropdown.Item
+    const dropdownItems = validGroupTypes.map(type => (
+      <Dropdown.Item
         key={type}
         text={type}
         value={type}
         onClick={() => this.setState({ type })}
-      />)
-    );
-
+      />
+    ));
 
     const rights = Object.keys(possibleActions).map(action => (
       <List.Item key={action}>

@@ -49,10 +49,12 @@ class LoginLocal extends Component<Props, State> {
   render() {
     let error = null;
     if (this.state.error) {
-      error = (<Message>
-        <Message.Header>Error</Message.Header>
-        <span style={{ whiteSpace: 'pre-line' }}>{this.state.error}</span>
-      </Message>);
+      error = (
+        <Message>
+          <Message.Header>Error</Message.Header>
+          <span style={{ whiteSpace: 'pre-line' }}>{this.state.error}</span>
+        </Message>
+      );
     }
     return (
       <Form onSubmit={() => this.submit()}>
