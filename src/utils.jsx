@@ -16,6 +16,11 @@ const routes: {
     to: '/login',
     children: 'Login'
   },
+  keattis: {
+    show: () => true,
+    to: '/keattis',
+    children: 'Keattis'
+  },
   profile: {
     show: _.negate(_.isNull),
     to: '/profile',

@@ -1,0 +1,83 @@
+.keattis {
+  .history {
+    width: 100%;
+
+    .left {
+      width: 20%;
+    }
+
+    .right {
+      width: 80%;
+      .inputBars {
+        position: relative;
+        height: 12px;
+        .inputBar {
+          position: absolute;
+          width: 2px;
+          margin-left: -1px;
+          height: 10px;
+        }
+      }
+      .quantum-tree {
+        opacity: 0.5;
+        margin-bottom: 3px;
+        .quantum-tree-tc {
+          height: 5px;
+          margin: 1px;
+
+          .tree {
+            height: 5px;
+          }
+        }
+      }
+      .tree.leaf, .float {
+        display: inline-block;
+        float: left;
+      }
+      .leaf {
+        border-right: solid 1px white;
+        border-left: solid 1px white;
+      }
+    }
+
+  }
+  .treerep div, .hashrep div {
+    /*display: inline-block;*/
+    line-height: 0 !important;
+    font-size: 0 !important;
+  }
+
+  .tree {
+    height: 20px;
+  }
+
+  .hashrep {
+    & > div {
+      margin-top: 1px;
+      height: 3px;
+    }
+  }
+
+  .tree.false {
+    background-color: red;
+  }
+
+  .tree.true {
+    background-color: green;
+  }
+
+  .attempt {
+    margin: 10px 0;
+  }
+
+  .pos {
+    background-color: blue;
+    margin-top: 1px;
+    height: 2px;
+  }
+  .impos {
+    background-color: pink;
+    margin-top: 1px;
+    height: 2px;
+  }
+}

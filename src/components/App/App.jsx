@@ -9,6 +9,7 @@ import userState from '../../store/user';
 import Header from './Header';
 
 import Login from '../Login/Login';
+import Keattis from '../Keattis/Keattis';
 import Signup from '../Login/Signup';
 import Profile from '../Profile/Profile';
 import Users from '../Users/Users';
@@ -49,6 +50,7 @@ class App extends React.Component<Props> {
           <Switch>
             <Route {...props} exact path='/' component={Welcome} />
             <Route {...props} path='/login' component={Login} />
+            <Route {...props} path='/keattis' component={Keattis} />
             <Route {...props} path='/signup' component={Signup} />
             <Route {...props} path='/profile' component={Profile} onEnter={ensureAuth} />
             <Route
