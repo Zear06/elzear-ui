@@ -3,7 +3,14 @@ import * as _ from 'lodash';
 import { Redirect } from 'react-router';
 import userState from './store/user';
 
-const routes = {
+const routes: {
+  [string]: {
+    show: (?string) => boolean,
+    to: string,
+    children: string,
+    onClick?: () => void
+  }
+} = {
   login: {
     show: _.isNull,
     to: '/login',
@@ -34,11 +41,11 @@ const routes = {
 
 const redirectLogin = <Redirect to='/login' />;
 
-function isAuth() : boolean {
+function isAuth(): boolean {
   return userState.token !== null;
 }
 
-function id2key(id : string) : string {
+function id2key(id: string): string {
   return id.split('/')[1];
 }
 
