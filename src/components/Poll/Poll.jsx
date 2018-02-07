@@ -25,7 +25,9 @@ class User extends Component<Props> {
       );
     }
     const candidates = JSON.parse(data.poll.candidates) || [];
-    const userPreference = JSON.parse(data.poll.userPreference.ranking) || [];
+    const userPreference = data.poll.userPreference
+      ? JSON.parse(data.poll.userPreference.ranking)
+      : [];
     return (
       <div className='poll'>
         <Link to={`/${data.poll._to}`}>&laquo; {data.poll.group.name}</Link>
