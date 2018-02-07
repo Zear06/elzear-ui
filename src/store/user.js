@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import { client } from '../ApolloSetup';
+import client from '../ApolloSetup';
 
 function initToken() : ?string {
   const str = window.localStorage.getItem('token');

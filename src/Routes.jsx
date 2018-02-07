@@ -4,10 +4,10 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route } from 'react-router-dom';
 import App from './components/App/App';
-import { client, store } from './ApolloSetup';
+import client from './ApolloSetup';
 
 const Routes = () => (
-  <ApolloProvider client={client} store={store}>
+  <ApolloProvider client={client}>
     <BrowserRouter>
       <Route path='/' component={App} />
     </BrowserRouter>

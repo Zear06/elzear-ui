@@ -1,21 +1,26 @@
-import { ApolloClient, createNetworkInterface, IntrospectionFragmentMatcher } from 'react-apollo';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { ApolloClient } from 'apollo-client';
+import { setContext } from 'apollo-link-context';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import userState from './store/user';
 
-const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:3001/graphql'
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3001/graphql',
 });
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}; // Create the header object if needed.
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = userState.getToken();
+  console.log('token', token);
+
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
     }
-    // get the authentication token from local storage if it exists
-    const token = userState.getToken();
-    req.options.headers.authorization = token ? `Bearer ${token}` : null;
-    next();
-  }
-}]);
+  };
+});
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: {
@@ -34,20 +39,8 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
   }
 });
 const client = new ApolloClient({
-  networkInterface,
-  fragmentMatcher
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache({ fragmentMatcher })
 });
 
-const store = createStore(
-  combineReducers({
-    apollo: client.reducer()
-  }),
-  {}, // initial state
-  compose(
-    applyMiddleware(client.middleware()),
-    // If you are using the devToolsExtension, you can add it here also
-    (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
-  )
-);
-
-export { client, store };
+export default client;

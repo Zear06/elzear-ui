@@ -14,19 +14,7 @@
     "jsx-quotes": [
       "error",
       "prefer-single"
-    ]
-  },
-  "settings": {
-    "import/extensions": [
-      ".js"
     ],
-    "import/resolver": {
-      "webpack": {
-        "config": "config/webpack.config.local.js"
-      }
-    }
-  },
-  "plugins": [
-    "eslint-plugin-react"
-  ]
+    "react/jsx-filename-extension": [2, { "extensions": [".test.js", ".jsx"] }]
+  }
 }
